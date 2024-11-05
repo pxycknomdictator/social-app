@@ -1,4 +1,5 @@
-import { _config } from "./src/config/constants";
+import { _config } from "./src/config/constants.js";
+import authRouter from "./src/routes/auth.router.js";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -20,6 +21,9 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false, limit: "16kb" }));
 app.use(express.json({ limit: "16kb" }));
+
+// routers
+app.use("/api", authRouter);
 
 // listening app
 app.listen(PORT, () =>
