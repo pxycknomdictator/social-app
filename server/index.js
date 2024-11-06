@@ -1,4 +1,5 @@
-import { _config } from "./src/config/constants.js";
+import { _config } from "./src/db/constants.js";
+import { dbConnect } from "./src/db/db.js";
 import authRouter from "./src/routes/auth.router.js";
 import express from "express";
 import cors from "cors";
@@ -25,7 +26,7 @@ app.use(express.json({ limit: "16kb" }));
 // routers
 app.use("/api", authRouter);
 
-// listening app
-app.listen(PORT, () =>
-  console.log(`Server started at: http://localhost:${PORT}`)
-);
+// database connection & listening App
+dbConnect()
+  .then(() => app.listen(PORT, () => console.log(`http://localhost:${PORT}`)))
+  .catch((error) => console.log(error?.message));
