@@ -1,5 +1,7 @@
+import { ApiResponse } from "../utils/ApiResponse.js";
+
 const handleRegisterUser = (req, res) => {
-  return res.status(201).json({ success: true, message: "register account" });
+  return ApiResponse(res, 201, true, "user registered successfully", {});
 };
 
 const handleLoginUser = (req, res) => {

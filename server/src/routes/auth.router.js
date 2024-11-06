@@ -1,14 +1,15 @@
 import { Router } from "express";
+import { asyncHandlerFunction } from "../utils/asyncHandler.js";
 import {
   handleRegisterUser,
   handleLoginUser,
   handleLogoutUser,
-} from "../controllers/auth.controller.js";
+} from "../controllers/authController.js";
 
 const router = Router();
 
-router.post("/register", handleRegisterUser);
-router.post("/login", handleLoginUser);
-router.get("/logout", handleLogoutUser);
+router.post("/register", asyncHandlerFunction(handleRegisterUser));
+router.post("/login", asyncHandlerFunction(handleLoginUser));
+router.get("/logout", asyncHandlerFunction(handleLogoutUser));
 
 export default router;
