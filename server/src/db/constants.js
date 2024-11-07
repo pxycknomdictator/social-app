@@ -4,6 +4,7 @@ const _config = {
   jwtTokenKey: process.env.JWT_TOKEN_KEY,
   port: process.env.PORT,
   originUrl: process.env.ORIGIN,
+  algorithm: process.env.TOKEN_ALGORITHM,
 };
 
 Object.freeze(_config);

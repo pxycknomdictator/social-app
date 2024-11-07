@@ -1,6 +1,7 @@
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/User.js";
 import { generatePassword, comparePassword } from "../middlewares/validate.js";
+import { generateToken } from "../middlewares/token.js";
 
 const handleRegisterUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -36,11 +37,21 @@ const handleLoginUser = async (req, res) => {
     return ApiResponse(res, 400, false, "Password is incorrect", null);
   }
 
-  return ApiResponse(res, 200, true, "Login user", exist);
+  const { _id, username, email: dbEmail } = exist;
+
+  const token = generateToken({ _id, username, dbEmail });
+
+  return res.status(201).cookie("access_token", token).json({
+    success: true,
+    message: "Login Successfully",
+    data: { _id, dbEmail, username },
+  });
 };
 
-const handleLogoutUser = (req, res) => {
-  return res.status(201).json({ success: true, message: "logout account" });
+const handleLogoutUser = (_, res) => {
+  return res
+    .clearCookie("access_token")
+    .json({ success: true, message: "user Logout" });
 };
 
 export { handleRegisterUser, handleLoginUser, handleLogoutUser };
