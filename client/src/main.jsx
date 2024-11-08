@@ -5,6 +5,7 @@ import { RegisterPage } from "./pages/RegisterPage.jsx";
 import { Sidebar } from "./components/Sidebar.jsx";
 import { App } from "./layout/App.jsx";
 import "./index.css";
+import { ProfilePage } from "./pages/ProfilePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,12 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <App />,
+    children: [
+      {
+        path: ":username",
+        element: <ProfilePage />,
+      },
+    ],
   },
 ]);
 
