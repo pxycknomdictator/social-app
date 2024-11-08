@@ -10,6 +10,6 @@
     border-right: 1px solid rgb(38, 38, 38);
   }
   .sidebar-links {
-    @apply cursor-pointer flex justify-center sm:justify-normal hover:bg-links items-center gap-3 sm:pl-3 py-3 sm:py-2.5 rounded-lg w-full;
+    @apply cursor-pointer flex justify-center md:justify-normal hover:bg-links items-center gap-3 md:pl-3 py-3 sm:py-2.5 rounded-lg w-full;
   }
 }
