@@ -10,7 +10,9 @@ export const Sidebar = () => {
   return (
     <div className="h-full relative">
       <h1 className="pl-3 cursor-pointer">
-        <span className="hidden font-medium md:block">Fake Media</span>
+        <span className="hidden font-medium md:block md:text-2xl">
+          Fake Media
+        </span>
         <span className="md:hidden text-xl sm:text-[1.4rem] font-medium">
           FM
         </span>

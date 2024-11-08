@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+
   .bg-links {
     background: hsl(0deg 0% 100% / 14%);
   }
