@@ -12,7 +12,7 @@ const handleRegisterUser = async (req, res) => {
 
   const exist = await User.findOne({ $or: [{ username }, { email }] });
   if (exist) {
-    return ApiResponse(res, 400, false, "This user is already exists", null);
+    return ApiResponse(res, 409, false, "This user is already exists", null);
   }
 
   const hash = await generatePassword(password);

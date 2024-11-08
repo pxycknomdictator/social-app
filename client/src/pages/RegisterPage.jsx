@@ -1,18 +1,34 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Loader } from "../components/Loader";
+import { handleRegisterUser } from "../utils/axios";
 
 export const RegisterPage = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const res = await handleRegisterUser("/register", data);
+      if (!res.success) {
+        return alert("Failed to registered user");
+      }
+      setTimeout(() => {
+        setLoading(false);
+        return navigate("/");
+      }, 500);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -102,12 +118,19 @@ export const RegisterPage = () => {
             </span>
           )}
         </div>
-        <button
-          type="submit"
-          className="w-full hover:bg-white bg-[#ffffffe4] font-medium text-black rounded-sm text-center py-2 text-[.8rem] cs:text-[.90rem]"
-        >
-          Create account
-        </button>
+        {!loading ? (
+          <button
+            disabled={loading}
+            type="submit"
+            className="w-full bg-white hover:bg-[#ffffffed] font-medium text-black rounded-sm text-center py-2 text-[.8rem] cs:text-[.90rem]"
+          >
+            Create account
+          </button>
+        ) : (
+          <div className="w-full hover:bg-white bg-[#ffffff] font-medium text-black rounded-sm text-center py-2.5 text-[.8rem] cs:text-[.90rem] flex items-center justify-center gap-3">
+            <Loader />
+          </div>
+        )}
         <span className="block text-center text-[.8rem] cs:text-[.90rem]">
           Already have an account?
           <Link to="/" className="ml-1 text-blue-500 font-medium">
