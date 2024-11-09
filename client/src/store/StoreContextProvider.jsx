@@ -1,8 +1,28 @@
+import { useState } from "react";
 import { mediaStore } from "./store.js";
 
 export const StoreContextProvider = ({ children }) => {
-  const state = "Noman";
+  const [formState, setFormState] = useState({
+    loading: false,
+    showPassword: false,
+  });
+
+  const handleToggleEye = () => {
+    setFormState((prev) => ({
+      ...prev,
+      showPassword: !prev.showPassword,
+    }));
+  };
+
   return (
-    <mediaStore.Provider value={{ state }}>{children}</mediaStore.Provider>
+    <mediaStore.Provider
+      value={{
+        formState,
+        setFormState,
+        handleToggleEye,
+      }}
+    >
+      {children}
+    </mediaStore.Provider>
   );
 };

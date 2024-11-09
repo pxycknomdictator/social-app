@@ -1,33 +1,35 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "../components/Loader";
 import { handleRegisterUser } from "../utils/axios";
+import { useContextConsumer } from "../utils/contextConsumer.js";
+import { useForm } from "react-hook-form";
 
 export const RegisterPage = () => {
+  const { formState, setFormState, handleToggleEye } = useContextConsumer();
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    setLoading(true);
+    setFormState((prev) => ({ ...prev, loading: true }));
     try {
       const res = await handleRegisterUser("/register", data);
+
       if (!res.success) {
         return alert("Failed to registered user");
       }
       setTimeout(() => {
-        setLoading(false);
-        return navigate("/");
+        setFormState((prev) => ({ ...prev, loading: false }));
+        navigate("/");
       }, 500);
     } catch (error) {
-      console.log(error);
+      setFormState((prev) => ({ ...prev, loading: false }));
+      throw new Error(error);
     }
   };
 
@@ -98,14 +100,14 @@ export const RegisterPage = () => {
                 },
               })}
               className="py-2 w-full text-[.8rem] cs:text-[.90rem] transition-all pl-3 border-none outline-none bg-transparent"
-              type={showPassword ? "text" : "password"}
+              type={formState.showPassword ? "text" : "password"}
               id="password"
             />
             <span
               className="flex items-center justify-center px-3 cursor-pointer"
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={handleToggleEye}
             >
-              {showPassword ? (
+              {formState.showPassword ? (
                 <FaRegEye className="text-[1.2rem]" />
               ) : (
                 <FaRegEyeSlash className="text-[1.2rem]" />
@@ -118,9 +120,9 @@ export const RegisterPage = () => {
             </span>
           )}
         </div>
-        {!loading ? (
+        {!formState.loading ? (
           <button
-            disabled={loading}
+            disabled={formState.loading}
             type="submit"
             className="w-full bg-white hover:bg-[#ffffffed] font-medium text-black rounded-sm text-center py-2 text-[.8rem] cs:text-[.90rem]"
           >

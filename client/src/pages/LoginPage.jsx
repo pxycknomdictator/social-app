@@ -1,19 +1,42 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useCookies } from "react-cookie";
+import { Loader } from "../components/Loader.jsx";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { handleLoginUser } from "../utils/axios.js";
+import { useContextConsumer } from "../utils/contextConsumer";
+import { _config } from "../utils/constants.js";
 
 export const LoginPage = () => {
+  const { formState, setFormState, handleToggleEye } = useContextConsumer();
+
+  const [cookies, setCookie, removeCookie] = useCookies([_config.cookieName], {
+    doNotParse: true,
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false);
+  const onSubmit = async (data) => {
+    setFormState((prev) => ({ ...prev, loading: true }));
+    try {
+      const res = await handleLoginUser("/login", data);
+      if (res.status !== 201) {
+        return alert("Failed to Login user");
+      }
 
-  const onSubmit = (data) => {
-    console.log(data);
+      setCookie(_config.cookieName, res.data.token);
+
+      setTimeout(() => {
+        setFormState((prev) => ({ ...prev, loading: false }));
+      }, 500);
+    } catch (error) {
+      setFormState((prev) => ({ ...prev, loading: false }));
+      throw new Error(error);
+    }
   };
 
   return (
@@ -61,14 +84,14 @@ export const LoginPage = () => {
                 },
               })}
               className="py-2 w-full text-[.8rem] cs:text-[.90rem] transition-all pl-3 border-none outline-none bg-transparent"
-              type={showPassword ? "text" : "password"}
+              type={formState.showPassword ? "text" : "password"}
               id="password"
             />
             <span
               className="flex items-center justify-center px-3 cursor-pointer"
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={handleToggleEye}
             >
-              {showPassword ? (
+              {formState.showPassword ? (
                 <FaRegEye className="text-[1.2rem]" />
               ) : (
                 <FaRegEyeSlash className="text-[1.2rem]" />
@@ -81,9 +104,19 @@ export const LoginPage = () => {
             </span>
           )}
         </div>
-        <button className="w-full hover:bg-white bg-[#ffffffe4] font-medium text-black rounded-sm text-center py-2 text-[.8rem] cs:text-[.90rem]">
-          Login account
-        </button>
+        {!formState.loading ? (
+          <button
+            disabled={formState.loading}
+            type="submit"
+            className="w-full bg-white hover:bg-[#ffffffed] font-medium text-black rounded-sm text-center py-2 text-[.8rem] cs:text-[.90rem]"
+          >
+            Create account
+          </button>
+        ) : (
+          <div className="w-full hover:bg-white bg-[#ffffff] font-medium text-black rounded-sm text-center py-2.5 text-[.8rem] cs:text-[.90rem] flex items-center justify-center gap-3">
+            <Loader />
+          </div>
+        )}
         <span className="block text-center text-[.8rem] cs:text-[.90rem]">
           Don't have an account?
           <Link to="/register" className="ml-1 text-blue-500 font-medium">

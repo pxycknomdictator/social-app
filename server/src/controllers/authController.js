@@ -41,10 +41,11 @@ const handleLoginUser = async (req, res) => {
 
   const token = generateToken({ _id, username, dbEmail });
 
-  return res.status(201).cookie("access_token", token).json({
+  return res.status(201).json({
     success: true,
     message: "Login Successfully",
     data: { _id, dbEmail, username },
+    token,
   });
 };
 
