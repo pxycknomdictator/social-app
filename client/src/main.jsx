@@ -4,8 +4,8 @@ import { LoginPage } from "./pages/LoginPage.jsx";
 import { RegisterPage } from "./pages/RegisterPage.jsx";
 import { App } from "./layout/App.jsx";
 import { ProfilePage } from "./pages/ProfilePage.jsx";
+import { StoreContextProvider } from "./store/StoreContextProvider.jsx";
 import "./index.css";
-import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -29,5 +29,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <StoreContextProvider>
+    <RouterProvider router={router} />
+  </StoreContextProvider>
 );

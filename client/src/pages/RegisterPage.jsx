@@ -49,7 +49,7 @@ export const RegisterPage = () => {
               required: "Username is required",
               minLength: {
                 value: 3,
-                message: "username must be at least 3 characters",
+                message: "Username must be at least 3 characters",
               },
             })}
             className="w-full transition-all bg-transparent border-[#27272a] rounded-sm outline-none border focus:border-blue-500 py-2 pl-3 text-[.8rem] cs:text-[.90rem]"
