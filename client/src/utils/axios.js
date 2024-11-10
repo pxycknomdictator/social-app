@@ -6,6 +6,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 const handleRegisterUser = async (url, form) => {
@@ -26,4 +27,13 @@ const handleLoginUser = async (url, form) => {
   }
 };
 
-export { handleRegisterUser, handleLoginUser };
+const handleGetUserInformationFromDb = async (url) => {
+  try {
+    const response = await api.get(url);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export { handleRegisterUser, handleLoginUser, handleGetUserInformationFromDb };
