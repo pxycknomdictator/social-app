@@ -2,6 +2,7 @@ import { _config } from "./src/db/constants.js";
 import { dbConnect } from "./src/db/db.js";
 import authRouter from "./src/routes/auth.router.js";
 import userRouter from "./src/routes/user.router.js";
+import postRouter from "./src/routes/post.router.js";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -23,10 +24,12 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.json({ limit: "16kb" }));
+app.use("/public", express.static("public"));
 
 // routers
 app.use("/api", authRouter);
 app.use("/api", userRouter);
+app.use("/api", postRouter);
 
 // database connection & listening App
 dbConnect()
