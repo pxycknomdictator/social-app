@@ -41,7 +41,7 @@ const handleLoginUser = async (req, res) => {
 
   const token = generateToken({ _id, username, dbEmail });
 
-  return res.cookie("access_token", token).status(201).json({
+  return res.status(201).json({
     success: true,
     message: "Login Successfully",
     data: { _id, dbEmail, username },
@@ -49,10 +49,4 @@ const handleLoginUser = async (req, res) => {
   });
 };
 
-const handleLogoutUser = (_, res) => {
-  return res
-    .clearCookie("access_token")
-    .json({ success: true, message: "user Logout" });
-};
-
-export { handleRegisterUser, handleLoginUser, handleLogoutUser };
+export { handleRegisterUser, handleLoginUser };

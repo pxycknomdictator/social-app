@@ -11,4 +11,10 @@ const handleSendUserInformation = async (req, res) => {
   });
 };
 
-export { handleSendUserInformation };
+const handleDeleteUserAccount = async (req, res) => {
+  const { id } = req.body;
+  await User.findByIdAndDelete({ _id: id });
+  return ApiResponse(res, 204, true, `${id} id successfully deleted!`, null);
+};
+
+export { handleSendUserInformation, handleDeleteUserAccount };

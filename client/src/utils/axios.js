@@ -36,4 +36,20 @@ const handleGetUserInformationFromDb = async (url) => {
   }
 };
 
-export { handleRegisterUser, handleLoginUser, handleGetUserInformationFromDb };
+const handleMakeAPost = async (url, form) => {
+  try {
+    const response = await api.post(url, form, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export {
+  handleRegisterUser,
+  handleLoginUser,
+  handleGetUserInformationFromDb,
+  handleMakeAPost,
+};

@@ -5,6 +5,7 @@ import { FaUser } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaUserFriends } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const Sidebar = () => {
   return (
@@ -18,21 +19,21 @@ export const Sidebar = () => {
         </span>
       </h1>
       <ul className="mt-7 space-y-2 font-normal transition-all sm:text-[.9rem]">
-        <li className="sidebar-links">
+        <Link to="/dashboard" className="sidebar-links">
           <FaHome className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Home</span>
-        </li>
-        <li className="sidebar-links">
+        </Link>
+        <Link to="/dashboard/profile" className="sidebar-links flex">
+          <FaUser className="text-2xl sm:text-[1.3rem] hover:scale-110" />
+          <span className="hidden md:block">Profile</span>
+        </Link>
+        <Link to="/dashboard/create" className="sidebar-links">
           <MdAddToPhotos className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Create Post</span>
-        </li>
+        </Link>
         <li className="sidebar-links">
           <FaEye className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Posts</span>
-        </li>
-        <li className="sidebar-links flex">
-          <FaUser className="text-2xl sm:text-[1.3rem] hover:scale-110" />
-          <span className="hidden md:block">Profile</span>
         </li>
         <li className="sidebar-links">
           <FaUserFriends

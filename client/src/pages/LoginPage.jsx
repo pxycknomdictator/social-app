@@ -29,7 +29,7 @@ export const LoginPage = () => {
         alert("Failed to Login user");
       }
       if (res.data.token) {
-        setCookie(_config.cookieName, res.data.token);
+        setCookie(_config.cookieName, res.data.token, { path: "/" });
       }
 
       setTimeout(() => {

@@ -6,6 +6,7 @@ import { App } from "./layout/App.jsx";
 import { ProfilePage } from "./pages/ProfilePage.jsx";
 import { StoreContextProvider } from "./store/StoreContextProvider.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
+import { CreatePostPage } from "./pages/CreatePostPage.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: ":username",
         element: <ProfilePage />,
+      },
+      {
+        path: "create",
+        element: <CreatePostPage />,
       },
     ],
   },

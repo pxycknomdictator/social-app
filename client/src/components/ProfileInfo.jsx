@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { handleGetUserInformationFromDb } from "../utils/axios.js";
+import { useContextConsumer } from "../utils/contextConsumer.js";
 import avatar from "/user.jpg";
 
 export const ProfileInfo = () => {
+  const { handleLogoutUser } = useContextConsumer();
   const [info, setInfo] = useState({});
+
   useEffect(() => {
     (async () => {
       const response = await handleGetUserInformationFromDb("/user");
@@ -12,7 +15,7 @@ export const ProfileInfo = () => {
   }, []);
 
   if (info && info.status !== 200) {
-    return <h1>Can't Get you data from server</h1>;
+    return <h1 className="text-black">Can't Get you data from server</h1>;
   }
 
   const { allPosts, userInfo } = info.data.data;
@@ -31,8 +34,11 @@ export const ProfileInfo = () => {
             <button className="bg-[#ffffff24] hover:bg-[#ffffff15] px-5 py-1.5 rounded font-medium">
               Edit Profile
             </button>
-            <button className="bg-red-500 hover:bg-red-600 px-5 py-1.5 rounded font-medium">
-              Delete account!
+            <button
+              onClick={handleLogoutUser}
+              className="bg-red-500 hover:bg-red-600 px-5 py-1.5 rounded font-medium"
+            >
+              Logout
             </button>
           </div>
         </div>
@@ -51,7 +57,7 @@ export const ProfileInfo = () => {
           </div>
         </div>
         <div className="bottom mt-6 space-y-3">
-          <span className="font-medium">{userInfo.username}</span>
+          <span className="font-medium">{userInfo.username.toLowerCase()}</span>
           <article className="text-[.9rem] md:text-[1rem]">
             {userInfo.bio}
           </article>
