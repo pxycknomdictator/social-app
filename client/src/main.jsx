@@ -5,6 +5,7 @@ import { RegisterPage } from "./pages/RegisterPage.jsx";
 import { App } from "./layout/App.jsx";
 import { ProfilePage } from "./pages/ProfilePage.jsx";
 import { StoreContextProvider } from "./store/StoreContextProvider.jsx";
+import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <App />,
+    element: (
+      <ProtectedRoute>
+        <App />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: ":username",

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useCookies } from "react-cookie";
 import { Loader } from "../components/Loader.jsx";
@@ -8,6 +8,7 @@ import { useContextConsumer } from "../utils/contextConsumer";
 import { _config } from "../utils/constants.js";
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
   const { formState, setFormState, handleToggleEye } = useContextConsumer();
 
   const [cookies, setCookie, removeCookie] = useCookies([_config.cookieName], {
@@ -25,13 +26,15 @@ export const LoginPage = () => {
     try {
       const res = await handleLoginUser("/login", data);
       if (res.status !== 201) {
-        return alert("Failed to Login user");
+        alert("Failed to Login user");
       }
-
-      setCookie(_config.cookieName, res.data.token);
+      if (res.data.token) {
+        setCookie(_config.cookieName, res.data.token);
+      }
 
       setTimeout(() => {
         setFormState((prev) => ({ ...prev, loading: false }));
+        navigate("/dashboard/profile");
       }, 500);
     } catch (error) {
       setFormState((prev) => ({ ...prev, loading: false }));
@@ -110,7 +113,7 @@ export const LoginPage = () => {
             type="submit"
             className="w-full bg-white hover:bg-[#ffffffed] font-medium text-black rounded-sm text-center py-2 text-[.8rem] cs:text-[.90rem]"
           >
-            Create account
+            Login account
           </button>
         ) : (
           <div className="w-full hover:bg-white bg-[#ffffff] font-medium text-black rounded-sm text-center py-2.5 text-[.8rem] cs:text-[.90rem] flex items-center justify-center gap-3">
