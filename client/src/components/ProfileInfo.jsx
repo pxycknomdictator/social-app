@@ -1,18 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { handleGetUserInformationFromDb } from "../utils/axios.js";
 import { useContextConsumer } from "../utils/contextConsumer.js";
-import avatar from "/user.jpg";
 
 export const ProfileInfo = () => {
-  const { handleLogoutUser } = useContextConsumer();
-  const [info, setInfo] = useState({});
-
-  useEffect(() => {
-    (async () => {
-      const response = await handleGetUserInformationFromDb("/user");
-      setInfo(response.data.data.userInfo);
-    })();
-  }, []);
+  const { handleLogoutUser, info } = useContextConsumer();
 
   if (!Object.keys(info).length > 0) {
     return <h1>Failed</h1>;
@@ -21,7 +10,11 @@ export const ProfileInfo = () => {
   return (
     <section className="w-full px-10 md:px-0 md:w-[80%] mx-auto mt-10 flex flex-col gdm:flex-row items-center justify-between gap-10 md:mt-10 lg:flex-row lg:gap-16 lg:w-[80%]">
       <div className="rounded-full flex items-center size-[140px] md:size-[230px]">
-        <img src={avatar} alt="logo" className="w-full rounded-full" />
+        <img
+          src={info.profileImage}
+          alt="logo"
+          className="w-full rounded-full"
+        />
       </div>
       <div className="w-[90%]">
         <div className="md:flex md:items-center md:justify-between">

@@ -47,9 +47,19 @@ const handleMakeAPost = async (url, form) => {
   }
 };
 
+const handleUpdateProfile = async (url, form) => {
+  try {
+    const response = await api.put(url, form);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export {
   handleRegisterUser,
   handleLoginUser,
   handleGetUserInformationFromDb,
   handleMakeAPost,
+  handleUpdateProfile,
 };

@@ -18,6 +18,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    profileImage: {
+      type: String,
+      default: "http://localhost:3000/public/image/default.png",
+    },
     bio: {
       type: String,
       default: "",

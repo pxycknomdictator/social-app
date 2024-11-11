@@ -31,10 +31,10 @@ export const Sidebar = () => {
           <MdAddToPhotos className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Create Post</span>
         </Link>
-        <li className="sidebar-links">
+        <Link to="/dashboard/profile" className="sidebar-links">
           <FaEye className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Posts</span>
-        </li>
+        </Link>
         <li className="sidebar-links">
           <FaUserFriends
             size={"22px"}
@@ -44,10 +44,10 @@ export const Sidebar = () => {
         </li>
       </ul>
       <div className="absolute bottom-0 w-full">
-        <li className="sidebar-links">
+        <Link to="/dashboard/settings" className="sidebar-links">
           <IoSettingsSharp className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Settings</span>
-        </li>
+        </Link>
       </div>
     </div>
   );

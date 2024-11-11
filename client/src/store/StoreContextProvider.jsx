@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { mediaStore } from "./store.js";
 import { useCookies } from "react-cookie";
 import { _config } from "../utils/constants.js";
+import { handleGetUserInformationFromDb } from "../utils/axios.js";
 
 export const StoreContextProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies([_config.cookieName]);
+
+  const [info, setInfo] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      const response = await handleGetUserInformationFromDb("/user");
+      setInfo(response.data.data.userInfo);
+    })();
+  }, []);
 
   const [formState, setFormState] = useState({
     loading: false,
@@ -33,6 +43,7 @@ export const StoreContextProvider = ({ children }) => {
         setFormState,
         handleToggleEye,
         handleLogoutUser,
+        info,
       }}
     >
       {children}

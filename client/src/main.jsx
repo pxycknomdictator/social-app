@@ -7,6 +7,7 @@ import { ProfilePage } from "./pages/ProfilePage.jsx";
 import { StoreContextProvider } from "./store/StoreContextProvider.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { CreatePostPage } from "./pages/CreatePostPage.jsx";
+import { Settings } from "./pages/Settings.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "create",
         element: <CreatePostPage />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
       },
     ],
   },
