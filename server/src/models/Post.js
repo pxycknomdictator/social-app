@@ -1,31 +1,16 @@
 import { Schema, model } from "mongoose";
-
 const postSchema = new Schema(
   {
-    author: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-    title: {
-      type: String,
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-    postImage: {
-      type: String,
-    },
-    postLikes: [
+    title: { type: String, required: true },
+    content: { type: String, required: true },
+    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    postImage: { type: String, required: true },
+    comments: [
       {
         type: Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Comment",
       },
     ],
-    commentsCount: {
-      type: Number,
-      default: 0,
-    },
   },
   { timestamps: true }
 );
