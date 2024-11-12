@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useContextConsumer } from "../utils/contextConsumer.js";
 
 export const ProfileInfo = () => {
@@ -22,9 +23,12 @@ export const ProfileInfo = () => {
             {info.username}
           </p>
           <div className="grid cs:grid-cols-2 md:text-[1rem] md:flex md:items-center gap-2">
-            <button className="bg-[#ffffff24] hover:bg-[#ffffff15] px-5 py-1.5 rounded font-medium">
+            <Link
+              to="/dashboard/edit"
+              className="bg-[#ffffff24] hover:bg-[#ffffff15] px-5 py-1.5 rounded font-medium"
+            >
               Edit Profile
-            </button>
+            </Link>
             <button
               onClick={handleLogoutUser}
               className="bg-red-500 hover:bg-red-600 px-5 py-1.5 rounded font-medium"

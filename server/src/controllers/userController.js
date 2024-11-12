@@ -1,5 +1,6 @@
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/User.js";
+import { generatePassword } from "../middlewares/validate.js";
 
 const handleSendUserInformation = async (req, res) => {
   const userInfo = await User.findById(req.user._id).populate("posts");
@@ -7,7 +8,40 @@ const handleSendUserInformation = async (req, res) => {
 };
 
 const handleUpdateProfileSettings = async (req, res) => {
-  return ApiResponse(res, 204, true, "Profile updated successfully", null);
+  const userId = req.user._id;
+  const { username, email, password, bio } = req.body;
+  const profileImage = req.file
+    ? `http://localhost:3000/${req.file.path}`
+    : null;
+
+  const updateFields = {};
+  if (username) {
+    updateFields.username = username;
+  }
+  if (email) {
+    updateFields.email = email;
+  }
+  if (password) {
+    updateFields.password = await generatePassword(password);
+  }
+  if (bio) {
+    updateFields.bio = bio;
+  }
+  if (profileImage) {
+    updateFields.profileImage = profileImage;
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(userId, updateFields, {
+    new: true,
+  });
+
+  if (!updatedUser) {
+    return ApiResponse(res, 404, false, "User not found", null);
+  }
+
+  return ApiResponse(res, 200, true, "Profile updated successfully", {
+    updatedUser,
+  });
 };
 
 const handleDeleteUserAccount = async (req, res) => {

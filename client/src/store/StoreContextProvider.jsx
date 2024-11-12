@@ -8,13 +8,18 @@ export const StoreContextProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies([_config.cookieName]);
 
   const [info, setInfo] = useState({});
+  const { access_token } = cookies;
 
   useEffect(() => {
-    (async () => {
-      const response = await handleGetUserInformationFromDb("/user");
-      setInfo(response.data.data.userInfo);
-    })();
-  }, []);
+    if (access_token) {
+      (async () => {
+        const response = await handleGetUserInformationFromDb("/user");
+        setInfo(response.data.data.userInfo);
+      })();
+    } else {
+      return undefined;
+    }
+  }, [access_token]);
 
   const [formState, setFormState] = useState({
     loading: false,

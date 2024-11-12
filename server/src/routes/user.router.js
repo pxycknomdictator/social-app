@@ -6,6 +6,7 @@ import {
   handleUpdateProfileSettings,
 } from "../controllers/userController.js";
 import { validateToken } from "../middlewares/token.js";
+import { uploadProfile } from "../utils/uploadProfile.js";
 
 const router = Router();
 
@@ -22,6 +23,7 @@ router.post(
 router.put(
   "/user/update",
   validateToken,
+  uploadProfile.single("profileImage"),
   asyncHandlerFunction(handleUpdateProfileSettings)
 );
 

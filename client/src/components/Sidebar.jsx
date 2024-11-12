@@ -1,4 +1,3 @@
-import React from "react";
 import { FaHome } from "react-icons/fa";
 import { MdAddToPhotos } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
@@ -44,10 +43,10 @@ export const Sidebar = () => {
         </li>
       </ul>
       <div className="absolute bottom-0 w-full">
-        <Link to="/dashboard/settings" className="sidebar-links">
+        <li className="sidebar-links">
           <IoSettingsSharp className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Settings</span>
-        </Link>
+        </li>
       </div>
     </div>
   );

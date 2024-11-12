@@ -7,7 +7,7 @@ import { ProfilePage } from "./pages/ProfilePage.jsx";
 import { StoreContextProvider } from "./store/StoreContextProvider.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { CreatePostPage } from "./pages/CreatePostPage.jsx";
-import { Settings } from "./pages/Settings.jsx";
+import { Edit } from "./pages/Edit.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -36,8 +36,8 @@ const router = createBrowserRouter([
         element: <CreatePostPage />,
       },
       {
-        path: "settings",
-        element: <Settings />,
+        path: "edit",
+        element: <Edit />,
       },
     ],
   },

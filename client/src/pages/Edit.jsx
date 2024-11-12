@@ -1,19 +1,18 @@
 import { useState } from "react";
-import { Loader } from "../components/Loader";
+import { Loader } from "../components/Loader.jsx";
 import { useContextConsumer } from "../utils/contextConsumer.js";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { handleUpdateProfile } from "../utils/axios.js";
 
-export const Settings = () => {
-  const { formState, setFormState, info, handleToggleEye } =
-    useContextConsumer();
+export const Edit = () => {
+  const { formState, setFormState, handleToggleEye } = useContextConsumer();
 
   const initialState = {
     username: "",
     email: "",
     password: "",
     bio: "",
-    image: null,
+    profileImage: null,
   };
 
   const [form, setForm] = useState(initialState);
@@ -21,7 +20,7 @@ export const Settings = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setForm((prev) => ({ ...prev, image: file }));
+      setForm((prev) => ({ ...prev, profileImage: file }));
     }
   };
 
@@ -38,13 +37,12 @@ export const Settings = () => {
       formData.append("email", form.email);
       formData.append("password", form.password);
       formData.append("bio", form.bio);
-      if (form.image) {
-        formData.append("image", form.image);
+      if (form.profileImage) {
+        formData.append("profileImage", form.profileImage);
       }
       setFormState({ ...formState, loading: true });
-      const response = await handleUpdateProfile("/user/update", formData);
+      await handleUpdateProfile("/user/update", formData);
       setFormState({ ...formState, loading: false });
-      console.log(response);
     } catch (error) {
       setFormState({ ...formState, loading: false });
       console.log(error);
@@ -62,16 +60,16 @@ export const Settings = () => {
         </h1>
         <div className="flex items-center justify-end">
           <label
-            htmlFor="image"
+            htmlFor="profileImage"
             className="w-full text-center block lg:w-fit cursor-pointer px-4 py-2 border font-medium hover:bg-[white] hover:text-black border-[#27272a] rounded-md outline-none transition-all"
           >
             Change Photo
           </label>
           <input
-            name="image"
+            name="profileImage"
             className="hidden"
             type="file"
-            id="image"
+            id="profileImage"
             accept="image/*"
             onChange={handleFileChange}
           />

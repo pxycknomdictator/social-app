@@ -8,6 +8,7 @@ lerna-debug.log*
 .pnpm-debug.log*
 .vscode
 model.yaml
+public/image
 public/temp/
 
 # Diagnostic reports (https://nodejs.org/api/report.html)

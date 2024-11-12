@@ -49,7 +49,9 @@ const handleMakeAPost = async (url, form) => {
 
 const handleUpdateProfile = async (url, form) => {
   try {
-    const response = await api.put(url, form);
+    const response = await api.put(url, form, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     return response;
   } catch (error) {
     return error;
