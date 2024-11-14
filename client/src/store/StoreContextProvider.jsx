@@ -6,9 +6,16 @@ import { handleGetUserInformationFromDb } from "../utils/axios.js";
 
 export const StoreContextProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies([_config.cookieName]);
-
+  const [popups, setPopups] = useState({
+    logout: false,
+    delete: false,
+  });
   const [info, setInfo] = useState({});
   const { access_token } = cookies;
+  const [formState, setFormState] = useState({
+    loading: false,
+    showPassword: false,
+  });
 
   useEffect(() => {
     if (access_token) {
@@ -21,17 +28,10 @@ export const StoreContextProvider = ({ children }) => {
     }
   }, [access_token]);
 
-  const [formState, setFormState] = useState({
-    loading: false,
-    showPassword: false,
-  });
-
   const handleLogoutUser = () => {
-    const userConfirmation = confirm("are you sure to logout!");
-    if (!userConfirmation) {
-      return null;
-    }
+    setPopups((pre) => ({ ...pre, logout: true }));
     removeCookie(_config.cookieName, { path: "/" });
+    setPopups((pre) => ({ ...pre, logout: false }));
   };
 
   const handleToggleEye = () => {
@@ -49,6 +49,8 @@ export const StoreContextProvider = ({ children }) => {
         handleToggleEye,
         handleLogoutUser,
         info,
+        popups,
+        setPopups,
       }}
     >
       {children}

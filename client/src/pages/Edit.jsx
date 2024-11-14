@@ -75,7 +75,7 @@ export const Edit = () => {
           />
         </div>
         <div className="grid grid-cols-1 gap-1.5">
-          <label className="text-[.9rem]" htmlFor="username">
+          <label className="text-[.9rem] font-medium" htmlFor="username">
             Username
           </label>
           <input
@@ -84,11 +84,11 @@ export const Edit = () => {
             id="username"
             value={form.username}
             onChange={handleChangeInputs}
-            className="w-full transition-all bg-transparent border-[#27272a] rounded-sm outline-none border focus:border-blue-500 py-2 pl-3 text-[.8rem] cs:text-[1.1rem]"
+            className="w-full transition-all bg-transparent border-[#27272a] rounded-sm outline-none border focus:border-blue-500 py-2 pl-3 text-[.8rem] cs:text-[1rem]"
           />
         </div>
         <div className="grid grid-cols-1 gap-1.5">
-          <label className="text-[.9rem]" htmlFor="email">
+          <label className="text-[.9rem] font-medium" htmlFor="email">
             Email
           </label>
           <input
@@ -97,11 +97,11 @@ export const Edit = () => {
             id="email"
             value={form.email}
             onChange={handleChangeInputs}
-            className="w-full transition-all bg-transparent border-[#27272a] rounded-sm outline-none border focus:border-blue-500 py-2 pl-3 text-[.8rem] cs:text-[1.1rem]"
+            className="w-full transition-all bg-transparent border-[#27272a] rounded-sm outline-none border focus:border-blue-500 py-2 pl-3 text-[.8rem] cs:text-[1rem]"
           />
         </div>
         <div className="grid grid-cols-1 gap-1.5">
-          <label className="text-[.9rem]" htmlFor="password">
+          <label className="text-[.9rem] font-medium" htmlFor="password">
             Password
           </label>
           <div className="w-full transition-all border border-[#27272a] bg-transparent rounded-sm outline-none flex focus-within:border-blue-500">
@@ -129,7 +129,7 @@ export const Edit = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-1.5">
-          <label className="text-[.9rem]" htmlFor="bio">
+          <label className="text-[.9rem] font-medium" htmlFor="bio">
             Bio
           </label>
           <textarea
@@ -138,7 +138,7 @@ export const Edit = () => {
             value={form.bio}
             onChange={handleChangeInputs}
             rows={7}
-            className="w-full transition-all bg-transparent outline-none border border-[#27272a] focus:border-blue-500 rounded-sm py-2 pl-3 text-[.8rem] cs:text-[1.1rem] resize-none"
+            className="w-full transition-all bg-transparent outline-none border border-[#27272a] focus:border-blue-500 rounded-sm py-2 pl-3 text-[.8rem] cs:text-[1rem] resize-none"
           />
         </div>
         {!formState.loading ? (

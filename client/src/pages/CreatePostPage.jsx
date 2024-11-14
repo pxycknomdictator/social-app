@@ -61,7 +61,7 @@ export const CreatePostPage = () => {
                 message: "title must be at least 3 characters",
               },
             })}
-            className="w-full transition-all bg-transparent border-[#27272a] rounded-sm outline-none border focus:border-blue-500 py-2 pl-3 text-[.8rem] cs:text-[1.1rem]"
+            className="w-full transition-all bg-transparent border-[#27272a] rounded-sm outline-none border focus:border-blue-500 py-2 pl-3 text-[.8rem] cs:text-[1rem]"
             type="text"
             id="title"
           />
@@ -87,7 +87,7 @@ export const CreatePostPage = () => {
                 message: "description no more contain 300 characters",
               },
             })}
-            className="w-full transition-all bg-transparent outline-none border border-[#27272a] focus:border-blue-500 rounded-sm py-2 pl-3 text-[.8rem] cs:text-[1.1rem] resize-none"
+            className="w-full transition-all bg-transparent outline-none border border-[#27272a] focus:border-blue-500 rounded-sm py-2 pl-3 text-[.8rem] cs:text-[1rem] resize-none"
             type="description"
             id="description"
             rows={10}
