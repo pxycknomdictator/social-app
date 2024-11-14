@@ -8,6 +8,7 @@ import { StoreContextProvider } from "./store/StoreContextProvider.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { CreatePostPage } from "./pages/CreatePostPage.jsx";
 import { Edit } from "./pages/Edit.jsx";
+import { SinglePost } from "./components/SinglePost.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
+      {
+        path: "posts/:postId",
+        element: <SinglePost />,
+      },
       {
         path: ":username",
         element: <ProfilePage />,

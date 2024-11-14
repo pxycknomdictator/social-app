@@ -3,6 +3,7 @@ import { dbConnect } from "./src/db/db.js";
 import authRouter from "./src/routes/auth.router.js";
 import userRouter from "./src/routes/user.router.js";
 import postRouter from "./src/routes/post.router.js";
+import commentRouter from "./src/routes/comment.router.js";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -30,6 +31,7 @@ app.use("/public", express.static("public"));
 app.use("/api", authRouter);
 app.use("/api", userRouter);
 app.use("/api", postRouter);
+app.use("/api", commentRouter);
 
 // database connection & listening App
 dbConnect()

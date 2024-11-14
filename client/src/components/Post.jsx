@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export const Post = ({ post }) => {
   return (
@@ -13,9 +14,13 @@ export const Post = ({ post }) => {
         </article>
       </div>
       <div className="text-right">
-        <button className="hover:bg-[#ffffffec] bg-[#ffffff] py-1.5 px-5 font-semibold text-black inline-block rounded-sm w-full md:w-auto">
+        <NavLink
+          to={`/dashboard/posts/${post._id}`}
+          state={{ post, comments: post.comment }}
+          className="hover:bg-[#ffffffec] bg-[#ffffff] py-1.5 px-5 font-semibold text-black inline-block rounded-sm w-full md:w-auto"
+        >
           view
-        </button>
+        </NavLink>
       </div>
     </li>
   );
