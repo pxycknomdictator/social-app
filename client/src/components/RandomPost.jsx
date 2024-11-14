@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export const Post = ({ post }) => {
+export const RandomPost = ({ post }) => {
   return (
     <li className="w-[80%] mx-auto">
       <div className="flex items-center justify-center lg:justify-start mb-3">
@@ -19,7 +19,7 @@ export const Post = ({ post }) => {
         </article>
         <div className="text-center lg:text-right pr-3 py-2">
           <NavLink
-            to={`/dashboard/posts/${post._id}`}
+            to={`/dashboard/post/${post._id}`}
             state={{ post, comments: post.comments }}
             className="w-full hover:bg-[#ffffffec] bg-[#ffffff] py-1.5 px-5 font-semibold text-black inline-block rounded-sm lg:w-auto"
           >

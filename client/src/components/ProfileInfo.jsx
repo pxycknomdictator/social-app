@@ -59,13 +59,13 @@ export const ProfileInfo = () => {
           </div>
           <div className="bottom mt-6 space-y-3">
             <span className="font-medium">bio</span>
-            <article className="text-[.7rem] md:text-[.89rem]">
+            <article className="text-[.8rem] md:text-[.89rem]">
               {info.bio}
             </article>
           </div>
         </div>
       </section>
-      <ul className="w-full px-10 mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto lg:w-[90%] place-items-center gap-11 py-6">
+      <ul className="w-full mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto lg:w-[90%] place-items-center gap-11 ">
         {ALL_POSTS}
       </ul>
     </>

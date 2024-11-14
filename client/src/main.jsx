@@ -10,6 +10,9 @@ import { CreatePostPage } from "./pages/CreatePostPage.jsx";
 import { Edit } from "./pages/Edit.jsx";
 import { SinglePost } from "./components/SinglePost.jsx";
 import "./index.css";
+import { HomePage } from "./pages/HomePage.jsx";
+import { RandomPost } from "./components/RandomPost.jsx";
+import { RandomSinglePost } from "./components/RandomSinglePost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,14 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
+      {
+        path: "",
+        element: <HomePage />,
+      },
+      {
+        path: "post/:id",
+        element: <RandomSinglePost />,
+      },
       {
         path: "posts/:postId",
         element: <SinglePost />,

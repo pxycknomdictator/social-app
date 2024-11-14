@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { handleAddCommentInDB } from "../utils/axios.js";
 import { Comments } from "./Comments";
-import { useLocation } from "react-router-dom";
 import { useContextConsumer } from "../utils/contextConsumer.js";
 
-export const SinglePost = () => {
+export const RandomSinglePost = () => {
   const globalState = useLocation();
   const { info } = useContextConsumer();
   const { post } = globalState.state;

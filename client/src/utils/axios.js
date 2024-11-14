@@ -67,6 +67,15 @@ const handleAddCommentInDB = async (url, form) => {
   }
 };
 
+const handleGetAllApplicationPosts = async (url) => {
+  try {
+    const response = await api.get(url);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export {
   handleRegisterUser,
   handleLoginUser,
@@ -74,4 +83,5 @@ export {
   handleMakeAPost,
   handleUpdateProfile,
   handleAddCommentInDB,
+  handleGetAllApplicationPosts,
 };

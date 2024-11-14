@@ -23,4 +23,16 @@ const handleCreatePost = async (req, res) => {
   return ApiResponse(res, 201, true, "Post created successfully", newPost);
 };
 
-export { handleCreatePost };
+const handleSendAllPosts = async (req, res) => {
+  const posts = await Post.find({}).populate({
+    path: "comments",
+    populate: {
+      path: "author",
+      select: "username",
+    },
+  });
+
+  return ApiResponse(res, 200, true, "All Posts", posts);
+};
+
+export { handleCreatePost, handleSendAllPosts };
