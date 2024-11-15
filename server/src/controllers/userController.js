@@ -5,14 +5,21 @@ import { generatePassword } from "../middlewares/validate.js";
 const handleSendUserInformation = async (req, res) => {
   const userInfo = await User.findById(req.user._id).populate({
     path: "posts",
-    populate: {
-      path: "comments",
-      populate: {
+    populate: [
+      {
         path: "author",
         model: "User",
       },
-    },
+      {
+        path: "comments",
+        populate: {
+          path: "author",
+          model: "User",
+        },
+      },
+    ],
   });
+
   return ApiResponse(res, 200, true, "User information", { userInfo });
 };
 

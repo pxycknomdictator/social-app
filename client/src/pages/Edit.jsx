@@ -58,7 +58,7 @@ export const Edit = () => {
         <h1 className="font-medium text-[1.4rem] md:text-[1.5rem]">
           Edit Profile
         </h1>
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end m-0">
           <label
             htmlFor="profileImage"
             className="w-full text-center block lg:w-fit cursor-pointer px-4 py-2 border font-medium hover:bg-[white] hover:text-black border-[#27272a] rounded-md outline-none transition-all"
@@ -137,7 +137,7 @@ export const Edit = () => {
             id="bio"
             value={form.bio}
             onChange={handleChangeInputs}
-            rows={7}
+            rows={4}
             className="w-full transition-all bg-transparent outline-none border border-[#27272a] focus:border-blue-500 rounded-sm py-2 pl-3 text-[.8rem] cs:text-[1rem] resize-none"
           />
         </div>
