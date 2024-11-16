@@ -28,18 +28,24 @@ export const ProfileInfo = () => {
             <p className="text-2xl mb-4 text-center md:text-left md:mb-0 md:mr-4 md:text-[1.4rem]">
               {info.username}
             </p>
-            <div className="grid text-[.9rem] cs:grid-cols-2 md:flex md:items-center gap-2">
+            <div className="grid md:text-[.8rem] justify-end grid-cols-1 gap-2 text-[.9rem] md:grid-cols-2 lg:grid-cols-3 md:flex md:items-center md:w-full">
               <Link
                 to="/dashboard/edit"
-                className="bg-[#ffffff24] hover:bg-[#ffffff15] px-5 py-1.5 rounded font-medium text-center"
+                className="hover:bg-[#ffffff24] bg-[#ffffff18] px-5 py-1.5 rounded font-medium text-center"
               >
                 Edit Profile
               </Link>
               <button
                 onClick={() => setPopups((prev) => ({ ...prev, logout: true }))}
-                className="bg-red-500 hover:bg-red-600 px-5 py-1.5 rounded font-medium"
+                className="bg-gray-500 hover:bg-gray-600 px-5 py-1.5 rounded font-medium"
               >
                 Logout
+              </button>
+              <button
+                onClick={() => setPopups((prev) => ({ ...prev, delete: true }))}
+                className="bg-red-500 hover:bg-red-600 px-5 py-1.5 rounded font-medium col-span-2 md:w-auto"
+              >
+                Delete account!
               </button>
             </div>
           </div>

@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
 import { Prompt } from "../components/Prompt";
+import { DeletePrompt } from "../components/DeletePrompt";
 import { useContextConsumer } from "../utils/contextConsumer";
 
 export const App = () => {
-  const { popups, handleLogoutUser, setPopups } = useContextConsumer();
+  const { popups, handleLogoutUser, setPopups, handleDeleteUserAccount } =
+    useContextConsumer();
   return (
     <>
       <main className="flex">
@@ -23,12 +25,17 @@ export const App = () => {
               }}
             />
           )}
-          {/* <Prompt
-            text="Are you sure you want to delete your account?"
-            message="This action is permanent and cannot be undone. Once you delete your account, your photos, videos, comments, likes, and followers will be permanently removed."
-            option="Delete"
-            action={() => {}}
-          /> */}
+          {popups.delete && (
+            <DeletePrompt
+              text="Are you sure you want to delete your account?"
+              message="Think again bro. This action is permanent and cannot be undone. Once you delete your account, your photos, Posts, comments, and followers will be permanently removed."
+              option="Delete"
+              action={() => {
+                setPopups((prev) => ({ ...prev, delete: true }));
+                handleDeleteUserAccount();
+              }}
+            />
+          )}
           <Outlet />
         </section>
       </main>

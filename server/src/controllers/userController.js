@@ -1,5 +1,7 @@
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/User.js";
+import { Post } from "../models/Post.js";
+import { Comment } from "../models/Comment.js";
 import { generatePassword } from "../middlewares/validate.js";
 
 const handleSendUserInformation = async (req, res) => {
@@ -62,8 +64,10 @@ const handleUpdateProfileSettings = async (req, res) => {
 
 const handleDeleteUserAccount = async (req, res) => {
   const { id } = req.body;
-  await User.findByIdAndDelete({ _id: id });
-  return ApiResponse(res, 200, true, `${id} id successfully deleted!`, null);
+  await User.findByIdAndDelete(id);
+  await Post.deleteMany({ author: id });
+  await Comment.deleteMany({ author: id });
+  return ApiResponse(res, 200, true, `${id} successfully deleted!`, null);
 };
 
 export {

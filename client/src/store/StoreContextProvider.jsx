@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { mediaStore } from "./store.js";
 import { useCookies } from "react-cookie";
 import { _config } from "../utils/constants.js";
-import { handleGetUserInformationFromDb } from "../utils/axios.js";
+import {
+  handleDeleteUserAccountPermanently,
+  handleGetUserInformationFromDb,
+} from "../utils/axios.js";
 
 export const StoreContextProvider = ({ children }) => {
-  const [cookies, setCookie, removeCookie] = useCookies([_config.cookieName]);
+  const [cookies, _, removeCookie] = useCookies([_config.cookieName]);
+
   const [popups, setPopups] = useState({
     logout: false,
     delete: false,
@@ -34,6 +38,12 @@ export const StoreContextProvider = ({ children }) => {
     setPopups((pre) => ({ ...pre, logout: false }));
   };
 
+  const handleDeleteUserAccount = async () => {
+    await handleDeleteUserAccountPermanently("/user/delete", { id: info._id });
+    removeCookie(_config.cookieName, { path: "/" });
+    setPopups((pre) => ({ ...pre, delete: false }));
+  };
+
   const handleToggleEye = () => {
     setFormState((prev) => ({
       ...prev,
@@ -48,6 +58,7 @@ export const StoreContextProvider = ({ children }) => {
         setFormState,
         handleToggleEye,
         handleLogoutUser,
+        handleDeleteUserAccount,
         info,
         popups,
         setPopups,

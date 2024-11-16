@@ -76,6 +76,15 @@ const handleGetAllApplicationPosts = async (url) => {
   }
 };
 
+const handleDeleteUserAccountPermanently = async (url, id) => {
+  try {
+    const response = await api.post(url, id);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export {
   handleRegisterUser,
   handleLoginUser,
@@ -84,4 +93,5 @@ export {
   handleUpdateProfile,
   handleAddCommentInDB,
   handleGetAllApplicationPosts,
+  handleDeleteUserAccountPermanently,
 };
