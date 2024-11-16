@@ -16,20 +16,28 @@ export const RegisterPage = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setFormState((prev) => ({ ...prev, loading: true }));
+    setFormState((prev) => ({ ...prev, loading: true, error: "" }));
     try {
       const res = await handleRegisterUser("/register", data);
-
       if (!res.success) {
-        return alert("Failed to registered user");
+        setFormState((prev) => ({
+          ...prev,
+          loading: false,
+          error: res.response.data.message,
+        }));
       }
       setTimeout(() => {
-        setFormState((prev) => ({ ...prev, loading: false }));
-        navigate("/");
+        if (res.success) {
+          setFormState((prev) => ({ ...prev, loading: false }));
+          navigate("/");
+        }
       }, 500);
     } catch (error) {
-      setFormState((prev) => ({ ...prev, loading: false }));
-      throw new Error(error);
+      setFormState((prev) => ({
+        ...prev,
+        loading: false,
+        error: "An error occurred. Please try again later.",
+      }));
     }
   };
 
@@ -132,6 +140,11 @@ export const RegisterPage = () => {
           <div className="w-full hover:bg-white bg-[#ffffff] font-medium text-black rounded-sm text-center py-2.5 text-[.8rem] cs:text-[.90rem] flex items-center justify-center gap-3">
             <Loader />
           </div>
+        )}
+        {formState.error && (
+          <span className="text-red-500 text-[.9rem] font-medium block mt-2">
+            {formState.error}
+          </span>
         )}
         <span className="block text-center text-[.8rem] cs:text-[.90rem]">
           Already have an account?

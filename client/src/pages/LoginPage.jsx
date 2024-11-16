@@ -22,23 +22,33 @@ export const LoginPage = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setFormState((prev) => ({ ...prev, loading: true }));
+    setFormState((prev) => ({ ...prev, loading: true, error: "" }));
+
     try {
       const res = await handleLoginUser("/login", data);
       if (res.status !== 201) {
-        alert("Failed to Login user");
+        setFormState((prev) => ({
+          ...prev,
+          loading: false,
+          error: res.response?.data?.message || "An unknown error occurred.",
+        }));
+      } else {
+        if (res.data.token) {
+          setCookie(_config.cookieName, res.data.token, { path: "/" });
+          setTimeout(() => {
+            setFormState((prev) => ({ ...prev, loading: false }));
+            navigate("/dashboard/profile");
+          }, 500);
+        }
       }
-      if (res.data.token) {
-        setCookie(_config.cookieName, res.data.token, { path: "/" });
-      }
-
-      setTimeout(() => {
-        setFormState((prev) => ({ ...prev, loading: false }));
-        navigate("/dashboard/profile");
-      }, 500);
     } catch (error) {
-      setFormState((prev) => ({ ...prev, loading: false }));
-      throw new Error(error);
+      setFormState((prev) => ({
+        ...prev,
+        loading: false,
+        error:
+          error?.response?.data?.message ||
+          "An error occurred. Please try again later.",
+      }));
     }
   };
 
@@ -46,10 +56,10 @@ export const LoginPage = () => {
     <section className="w-screen h-screen grid place-items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full sm:w-[60%] lg:w-1/2 xl:w-[35%] space-y-7 sm:space-y-5 rounded-lg  sm:border-[#27272a] sm:border-[1px] py-6 px-8"
+        className="w-full sm:w-[60%] lg:w-1/2 xl:w-[35%] space-y-7 sm:space-y-5 rounded-lg sm:border-[#27272a] sm:border-[1px] py-6 px-8"
       >
         <h1 className="font-medium text-[1.2rem] md:text-[1.5rem]">
-          Login an account
+          Login to your account
         </h1>
         <div className="grid grid-cols-1 gap-1.5">
           <label className="text-[.9rem]" htmlFor="email">
@@ -119,6 +129,11 @@ export const LoginPage = () => {
           <div className="w-full hover:bg-white bg-[#ffffff] font-medium text-black rounded-sm text-center py-2.5 text-[.8rem] cs:text-[.90rem] flex items-center justify-center gap-3">
             <Loader />
           </div>
+        )}
+        {formState.error && (
+          <span className="text-red-500 text-[.9rem] font-medium block mt-2">
+            {formState.error}
+          </span>
         )}
         <span className="block text-center text-[.8rem] cs:text-[.90rem]">
           Don't have an account?
