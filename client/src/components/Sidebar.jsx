@@ -42,13 +42,13 @@ export const Sidebar = () => {
           <FaEye className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Posts</span>
         </Link>
-        <li className="sidebar-links">
+        <Link to="/dashboard/explore/people" className="sidebar-links">
           <FaUserFriends
             size={"22px"}
             className="text-2xl sm:text-[1.3rem] hover:scale-110"
           />
-          <span className="hidden md:block">Friends</span>
-        </li>
+          <span className="hidden md:block">Explore people</span>
+        </Link>
       </ul>
       <div className="absolute bottom-0 w-full">
         <li className="sidebar-links">

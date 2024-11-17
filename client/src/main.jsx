@@ -11,6 +11,7 @@ import { Edit } from "./pages/Edit.jsx";
 import { SinglePost } from "./components/SinglePost.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
 import { RandomSinglePost } from "./components/RandomSinglePost.jsx";
+import { AllUsersList } from "./components/AllUsersList.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "edit",
         element: <Edit />,
+      },
+      {
+        path: "explore/people",
+        element: <AllUsersList />,
       },
     ],
   },

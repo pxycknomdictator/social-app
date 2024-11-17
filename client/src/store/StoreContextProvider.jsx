@@ -10,6 +10,11 @@ import {
 export const StoreContextProvider = ({ children }) => {
   const [cookies, _, removeCookie] = useCookies([_config.cookieName]);
 
+  const [posts, setPosts] = useState({
+    post: [],
+    users: [],
+  });
+
   const [popups, setPopups] = useState({
     logout: false,
     delete: false,
@@ -62,6 +67,8 @@ export const StoreContextProvider = ({ children }) => {
         info,
         popups,
         setPopups,
+        posts,
+        setPosts,
       }}
     >
       {children}

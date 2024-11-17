@@ -1,17 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RandomPost } from "../components/RandomPost.jsx";
 import { handleGetAllApplicationPosts } from "../utils/axios.js";
 import { ProfilePic } from "../components/ProfilePic.jsx";
 import { useContextConsumer } from "../utils/contextConsumer.js";
 import { Suggestions } from "../components/Suggestions.jsx";
+import { Link } from "react-router-dom";
 
 export const HomePage = () => {
-  const [posts, setPosts] = useState({
-    post: [],
-    users: [],
-  });
-
-  const { info } = useContextConsumer();
+  const { info, posts, setPosts } = useContextConsumer();
 
   useEffect(() => {
     (async () => {
@@ -40,11 +36,16 @@ export const HomePage = () => {
           )}
         </ul>
       </section>
-      <section className="w-[30%] hidden px-8 lg:block" id="suggestions">
+      <section className="w-[30%] hidden px-10 lg:block" id="suggestions">
         <ProfilePic info={info} />
-        <ul className="mt-36">
-          <span>Suggestions</span>
-          {posts.users?.map((user) => (
+        <ul className="mt-11">
+          <div className="flex items-center justify-between">
+            <span>Suggested for you</span>
+            <Link to="/dashboard/explore/people" className="text-gray-400">
+              see all
+            </Link>
+          </div>
+          {posts.users?.slice(0, 4).map((user) => (
             <Suggestions key={user._id} user={user} />
           ))}
         </ul>
