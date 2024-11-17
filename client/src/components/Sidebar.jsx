@@ -5,8 +5,10 @@ import { FaEye } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaUserFriends } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useContextConsumer } from "../utils/contextConsumer.js";
 
 export const Sidebar = () => {
+  const { info } = useContextConsumer();
   return (
     <div className="h-full relative">
       <h1 className="pl-3 cursor-pointer">
@@ -22,7 +24,10 @@ export const Sidebar = () => {
           <FaHome className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Home</span>
         </Link>
-        <Link to="/dashboard/profile" className="sidebar-links flex">
+        <Link
+          to={`/dashboard/${info.username && info.username.toLowerCase()}`}
+          className="sidebar-links flex"
+        >
           <FaUser className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Profile</span>
         </Link>
@@ -30,7 +35,10 @@ export const Sidebar = () => {
           <MdAddToPhotos className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Create Post</span>
         </Link>
-        <Link to="/dashboard/profile" className="sidebar-links">
+        <Link
+          to={`/dashboard/${info.username && info.username.toLowerCase()}`}
+          className="sidebar-links"
+        >
           <FaEye className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Posts</span>
         </Link>

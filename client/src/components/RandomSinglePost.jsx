@@ -30,7 +30,11 @@ export const RandomSinglePost = () => {
     <main className="w-full md:w-[90%] mx-auto flex items-center justify-center pb-5">
       <section className="w-[90%] md:w-[70%] lg:w-[60%] mt-5">
         <div className="w-full flex items-center justify-center">
-          <img className="w-[70%]" src={post.postImage} alt={post.title} />
+          <img
+            className="w-[70%] rounded-lg"
+            src={post.postImage}
+            alt={post.title}
+          />
         </div>
         <div className="py-4 mt-4 space-y-4">
           <h2 className="sm:text-xl font-medium">{post.title}</h2>
@@ -46,6 +50,7 @@ export const RandomSinglePost = () => {
           className="flex flex-col md:flex-row space-y-5 md:space-y-0 mb-4"
         >
           <input
+            autoComplete="off"
             onChange={(event) => setComment(event.target.value)}
             value={comment}
             className="w-full transition-all py-2 bg-transparent outline-none border border-[#27272a] focus:border-blue-500 rounded-sm pl-3 text-[.8rem] cs:text-[.90rem]"

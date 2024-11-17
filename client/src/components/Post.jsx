@@ -12,11 +12,6 @@ export const Post = ({ post }) => {
       </div>
       <div className="py-4 space-y-4 flex-1">
         <h3 className="text-xl font-medium">{post.title}</h3>
-        {/* <article className="text-[.9rem]">
-          {post.content.length > 80
-            ? `${post.content.slice(0, 80)}...`
-            : post.content}
-        </article> */}
         <div className="text-center lg:text-right py-2">
           <NavLink
             to={`/dashboard/posts/${post._id}`}

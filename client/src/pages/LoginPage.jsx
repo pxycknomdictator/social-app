@@ -9,7 +9,8 @@ import { _config } from "../utils/constants.js";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { formState, setFormState, handleToggleEye } = useContextConsumer();
+  const { formState, setFormState, handleToggleEye, info } =
+    useContextConsumer();
 
   const [cookies, setCookie, removeCookie] = useCookies([_config.cookieName], {
     doNotParse: true,
@@ -37,7 +38,7 @@ export const LoginPage = () => {
           setCookie(_config.cookieName, res.data.token, { path: "/" });
           setTimeout(() => {
             setFormState((prev) => ({ ...prev, loading: false }));
-            navigate("/dashboard/profile");
+            navigate(`/dashboard/${info.username && info.username}`);
           }, 500);
         }
       }
@@ -59,13 +60,14 @@ export const LoginPage = () => {
         className="w-full sm:w-[60%] lg:w-1/2 xl:w-[35%] space-y-7 sm:space-y-5 rounded-lg sm:border-[#27272a] sm:border-[1px] py-6 px-8"
       >
         <h1 className="font-medium text-[1.2rem] md:text-[1.5rem]">
-          Login to your account
+          Login account
         </h1>
         <div className="grid grid-cols-1 gap-1.5">
           <label className="text-[.9rem]" htmlFor="email">
             Email:
           </label>
           <input
+            autoComplete="off"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -89,6 +91,7 @@ export const LoginPage = () => {
           </label>
           <div className="w-full transition-all border border-[#27272a] bg-transparent rounded-sm outline-none flex focus-within:border-blue-500">
             <input
+              autoComplete="off"
               {...register("password", {
                 required: "Password is required",
                 minLength: {

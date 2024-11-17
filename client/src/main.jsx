@@ -9,10 +9,9 @@ import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { CreatePostPage } from "./pages/CreatePostPage.jsx";
 import { Edit } from "./pages/Edit.jsx";
 import { SinglePost } from "./components/SinglePost.jsx";
-import "./index.css";
 import { HomePage } from "./pages/HomePage.jsx";
-import { RandomPost } from "./components/RandomPost.jsx";
 import { RandomSinglePost } from "./components/RandomSinglePost.jsx";
+import "./index.css";
 
 const router = createBrowserRouter([
   {

@@ -21,7 +21,7 @@ export const RandomPost = ({ post }) => {
           <NavLink
             to={`/dashboard/post/${post._id}`}
             state={{ post, comments: post.comments }}
-            className="w-full hover:bg-[#ffffffec] bg-[#ffffff] py-1.5 px-5 font-semibold text-black inline-block rounded-sm lg:w-auto"
+            className="w-full text-center hover:bg-[#ffffffec] bg-[#ffffff] py-1.5 px-5 font-semibold text-black inline-block rounded-sm"
           >
             View
           </NavLink>

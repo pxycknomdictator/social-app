@@ -55,6 +55,7 @@ export const RegisterPage = () => {
             Username:
           </label>
           <input
+            autoComplete="off"
             {...register("username", {
               required: "Username is required",
               minLength: {
@@ -77,6 +78,7 @@ export const RegisterPage = () => {
             Email:
           </label>
           <input
+            autoComplete="off"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -100,6 +102,7 @@ export const RegisterPage = () => {
           </label>
           <div className="w-full transition-all border border-[#27272a] bg-transparent rounded-sm outline-none flex focus-within:border-blue-500">
             <input
+              autoComplete="off"
               {...register("password", {
                 required: "Password is required",
                 minLength: {

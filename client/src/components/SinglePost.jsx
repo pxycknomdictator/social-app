@@ -30,7 +30,11 @@ export const SinglePost = () => {
     <main className="w-full md:w-[90%] mx-auto flex items-center justify-center pb-5">
       <section className="w-[90%] md:w-[70%] lg:w-[60%] mt-5">
         <div className="w-full flex items-center justify-center">
-          <img className="w-[70%]" src={post.postImage} alt={post.title} />
+          <img
+            className="w-[70%] rounded-lg"
+            src={post.postImage}
+            alt={post.title}
+          />
         </div>
         <div className="py-4 mt-4 space-y-4">
           <h2 className="sm:text-xl font-medium">{post.title}</h2>
