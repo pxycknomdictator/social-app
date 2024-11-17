@@ -24,6 +24,8 @@ const handleCreatePost = async (req, res) => {
 };
 
 const handleSendAllPosts = async (req, res) => {
+  const { _id } = req.user;
+
   const posts = await Post.find({}).populate({
     path: "comments",
     populate: {
@@ -31,8 +33,8 @@ const handleSendAllPosts = async (req, res) => {
       select: "username",
     },
   });
-
-  return ApiResponse(res, 200, true, "All Posts", posts);
+  const allUsers = await User.find({ _id: { $ne: _id } });
+  return ApiResponse(res, 200, true, "All Posts", { posts, allUsers });
 };
 
 export { handleCreatePost, handleSendAllPosts };

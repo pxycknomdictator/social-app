@@ -1,13 +1,20 @@
 import { Link } from "react-router-dom";
 import { Post } from "./Post.jsx";
 import { useContextConsumer } from "../utils/contextConsumer.js";
+import { useCookies } from "react-cookie";
+import { _config } from "../utils/constants.js";
+import { jwtDecode } from "jwt-decode";
 
 export const ProfileInfo = () => {
   const { info, setPopups } = useContextConsumer();
+  const [cookies, _, removeCookie] = useCookies([_config.cookieName]);
 
   if (!Object.keys(info).length > 0) {
     return <h1>Failed</h1>;
   }
+
+  const decoded = jwtDecode(cookies.access_token);
+  const isPerson = decoded._id === info._id;
 
   const ALL_POSTS = info.posts.map((post) => (
     <Post key={post._id} post={post} />
@@ -28,26 +35,38 @@ export const ProfileInfo = () => {
             <p className="text-2xl mb-4 text-center md:text-left md:mb-0 md:mr-4 md:text-[1.4rem]">
               {info.username}
             </p>
-            <div className="grid md:text-[.8rem] justify-end grid-cols-1 gap-2 text-[.9rem] md:grid-cols-2 lg:grid-cols-3 md:flex md:items-center md:w-full">
-              <Link
-                to="/dashboard/edit"
-                className="hover:bg-[#ffffff24] bg-[#ffffff18] px-5 py-1.5 rounded font-medium text-center"
-              >
-                Edit Profile
-              </Link>
-              <button
-                onClick={() => setPopups((prev) => ({ ...prev, logout: true }))}
-                className="bg-gray-500 hover:bg-gray-600 px-5 py-1.5 rounded font-medium"
-              >
-                Logout
-              </button>
-              <button
-                onClick={() => setPopups((prev) => ({ ...prev, delete: true }))}
-                className="bg-red-500 hover:bg-red-600 px-5 py-1.5 rounded font-medium col-span-2 md:w-auto"
-              >
-                Delete account!
-              </button>
-            </div>
+            {isPerson ? (
+              <div className="grid md:text-[.8rem] justify-end grid-cols-1 gap-2 text-[.9rem] md:grid-cols-2 lg:grid-cols-3 md:flex md:items-center md:w-full">
+                <Link
+                  to="/dashboard/edit"
+                  className="hover:bg-[#ffffff24] bg-[#ffffff18] px-5 py-1.5 rounded font-medium text-center"
+                >
+                  Edit Profile
+                </Link>
+                <button
+                  onClick={() =>
+                    setPopups((prev) => ({ ...prev, logout: true }))
+                  }
+                  className="bg-gray-500 hover:bg-gray-600 px-5 py-1.5 rounded font-medium"
+                >
+                  Logout
+                </button>
+                <button
+                  onClick={() =>
+                    setPopups((prev) => ({ ...prev, delete: true }))
+                  }
+                  className="bg-red-500 hover:bg-red-600 px-5 py-1.5 rounded font-medium col-span-2 md:w-auto"
+                >
+                  Delete account!
+                </button>
+              </div>
+            ) : (
+              <div className="text-right">
+                <button className="bg-blue-500 px-5 py-1.5 font-medium hover:bg-blue-600 rounded-md">
+                  Follow
+                </button>
+              </div>
+            )}
           </div>
           <div className="text-[.9rem] md:text-[1rem] grid grid-cols-3 place-items-center md:flex md:items-center gap-10 mt-6">
             <div className="flex items-center gap-2">
