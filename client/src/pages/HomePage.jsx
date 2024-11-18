@@ -4,7 +4,7 @@ import { handleGetAllApplicationPosts } from "../utils/axios.js";
 import { ProfilePic } from "../components/ProfilePic.jsx";
 import { useContextConsumer } from "../utils/contextConsumer.js";
 import { Suggestions } from "../components/Suggestions.jsx";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const HomePage = () => {
   const { info, posts, setPosts } = useContextConsumer();
@@ -41,9 +41,13 @@ export const HomePage = () => {
         <ul className="mt-11">
           <div className="flex items-center justify-between">
             <span>Suggested for you</span>
-            <Link to="/dashboard/explore/people" className="text-gray-400">
+            <NavLink
+              state={posts}
+              to="/dashboard/explore/people"
+              className="text-gray-400"
+            >
               see all
-            </Link>
+            </NavLink>
           </div>
           {posts.users?.slice(0, 4).map((user) => (
             <Suggestions key={user._id} user={user} />

@@ -4,11 +4,11 @@ import { FaUser } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaUserFriends } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContextConsumer } from "../utils/contextConsumer.js";
 
 export const Sidebar = () => {
-  const { info } = useContextConsumer();
+  const { info, posts } = useContextConsumer();
   return (
     <div className="h-full relative">
       <h1 className="pl-3 cursor-pointer">
@@ -20,35 +20,39 @@ export const Sidebar = () => {
         </span>
       </h1>
       <ul className="mt-7 space-y-2 font-normal transition-all sm:text-[.9rem]">
-        <Link to="/dashboard" className="sidebar-links">
+        <NavLink to="/dashboard" className="sidebar-links">
           <FaHome className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Home</span>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={`/dashboard/${info.username && info.username.toLowerCase()}`}
           className="sidebar-links flex"
         >
           <FaUser className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Profile</span>
-        </Link>
-        <Link to="/dashboard/create" className="sidebar-links">
+        </NavLink>
+        <NavLink to="/dashboard/create" className="sidebar-links">
           <MdAddToPhotos className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Create Post</span>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={`/dashboard/${info.username && info.username.toLowerCase()}`}
           className="sidebar-links"
         >
           <FaEye className="text-2xl sm:text-[1.3rem] hover:scale-110" />
           <span className="hidden md:block">Posts</span>
-        </Link>
-        <Link to="/dashboard/explore/people" className="sidebar-links">
+        </NavLink>
+        <NavLink
+          state={posts}
+          to="/dashboard/explore/people"
+          className="sidebar-links"
+        >
           <FaUserFriends
             size={"22px"}
             className="text-2xl sm:text-[1.3rem] hover:scale-110"
           />
           <span className="hidden md:block">Explore people</span>
-        </Link>
+        </NavLink>
       </ul>
       <div className="absolute bottom-0 w-full">
         <li className="sidebar-links">
