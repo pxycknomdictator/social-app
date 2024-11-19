@@ -4,17 +4,18 @@ import {
   handleSendUserInformation,
   handleDeleteUserAccount,
   handleUpdateProfileSettings,
+  handleSendSpecificUserInformation,
 } from "../controllers/userController.js";
 import { validateToken } from "../middlewares/token.js";
 import { uploadProfile } from "../utils/uploadProfile.js";
 
 const router = Router();
 
-router.get(
-  "/user",
-  validateToken,
-  asyncHandlerFunction(handleSendUserInformation)
-);
+router
+  .route("/user")
+  .get(validateToken, asyncHandlerFunction(handleSendUserInformation))
+  .post(validateToken, asyncHandlerFunction(handleSendSpecificUserInformation));
+
 router.post(
   "/user/delete",
   validateToken,

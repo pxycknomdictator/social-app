@@ -18,6 +18,8 @@ COPY --from=builder /app .
 
 COPY .env .
 
+ENV DATABASE_URL="mongodb://mongodb:27017"
+
 EXPOSE 3000
 
 CMD [ "npm", "run", "start" ]

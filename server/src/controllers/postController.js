@@ -30,9 +30,10 @@ const handleSendAllPosts = async (req, res) => {
     path: "comments",
     populate: {
       path: "author",
-      select: "username",
+      select: "username profileImage",
     },
   });
+
   const allUsers = await User.find({ _id: { $ne: _id } });
   return ApiResponse(res, 200, true, "All Posts", { posts, allUsers });
 };

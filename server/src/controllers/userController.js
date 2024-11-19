@@ -25,6 +25,28 @@ const handleSendUserInformation = async (req, res) => {
   return ApiResponse(res, 200, true, "User information", { userInfo });
 };
 
+const handleSendSpecificUserInformation = async (req, res) => {
+  const { id } = req.body;
+  const userInfo = await User.findById({ _id: id }).populate({
+    path: "posts",
+    populate: [
+      {
+        path: "author",
+        model: "User",
+      },
+      {
+        path: "comments",
+        populate: {
+          path: "author",
+          model: "User",
+        },
+      },
+    ],
+  });
+
+  return ApiResponse(res, 200, true, "User information", { userInfo });
+};
+
 const handleUpdateProfileSettings = async (req, res) => {
   const userId = req.user._id;
   const { username, email, password, bio } = req.body;
@@ -74,4 +96,5 @@ export {
   handleSendUserInformation,
   handleDeleteUserAccount,
   handleUpdateProfileSettings,
+  handleSendSpecificUserInformation,
 };

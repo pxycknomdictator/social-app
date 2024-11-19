@@ -1,4 +1,6 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { handleGetSpecificUserInfo } from "../utils/axios.js";
+import { useContextConsumer } from "../utils/contextConsumer.js";
 
 export const AllUsersList = () => {
   const { users } = useLocation().state;
@@ -14,8 +16,20 @@ export const AllUsersList = () => {
 };
 
 const UserList = ({ user }) => {
+  const { setInfo } = useContextConsumer();
+  const navigate = useNavigate();
+
+  const getId = async (id) => {
+    const response = await handleGetSpecificUserInfo("/user", id);
+    setInfo(response.data.data.userInfo);
+    navigate(`/dashboard/${response.data.data.userInfo.username}`);
+  };
+
   return (
-    <li className="flex items-center w-full justify-between mt-5">
+    <li
+      onClick={() => getId(user._id)}
+      className="flex items-center px-4 py-1.5 rounded-md w-full justify-between mt-5 hover:bg-[#ffffff17] cursor-pointer"
+    >
       <div className="flex items-center gap-4">
         <div className="w-[30px] h-[30px] rounded-full overflow-hidden flex items-center justify-center">
           <img

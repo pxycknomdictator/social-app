@@ -65,6 +65,7 @@ export const StoreContextProvider = ({ children }) => {
         handleLogoutUser,
         handleDeleteUserAccount,
         info,
+        setInfo,
         popups,
         setPopups,
         posts,
