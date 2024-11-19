@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --env-file=.env index.js",
-    "rm": "sudo rm -r dist",
-    "start": "node index.js"
+    "start": "node --env-file=.env index.js",
+    "rm": "sudo rm -r dist"
   },
   "keywords": [
     "JavaScript",

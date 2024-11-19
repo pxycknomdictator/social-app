@@ -33,6 +33,12 @@ app.use("/api", userRouter);
 app.use("/api", postRouter);
 app.use("/api", commentRouter);
 
+// custom health route
+
+app.get("/health", (req, res) => {
+  res.status(200).send("Server is health");
+});
+
 // database connection & listening App
 dbConnect()
   .then(() => app.listen(PORT, () => console.log(`http://localhost:${PORT}`)))

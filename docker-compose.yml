@@ -1,0 +1,41 @@
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - social_app
+
+  nodejs:
+    container_name: backend
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./server/.env
+    networks:
+      - social_app
+    depends_on:
+      - mongodb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      retries: 3
+
+  reactjs:
+    container_name: frontend
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    env_file:
+      - ./client/.env
+    networks:
+      - social_app
+    ports:
+      - "5173:5173"
+
+networks:
+  social_app:
