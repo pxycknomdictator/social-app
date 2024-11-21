@@ -92,9 +92,38 @@ const handleDeleteUserAccount = async (req, res) => {
   return ApiResponse(res, 200, true, `${id} successfully deleted!`, null);
 };
 
+const handleFollowUser = async (req, res) => {
+  const { loggedInId, followId } = req.body;
+
+  const alreadyFollowing = await User.findOne({
+    _id: loggedInId,
+    following: followId,
+  });
+
+  if (alreadyFollowing) {
+    return ApiResponse(res, 400, false, "You are already following this user", true);
+  }
+
+  await User.findByIdAndUpdate(
+    { _id: followId },
+    { $push: { followers: loggedInId } }
+  );
+
+  await User.findByIdAndUpdate(
+    { _id: loggedInId },
+    { $push: { following: followId } }
+  );
+
+  const user = await User.findById({ _id: loggedInId });
+  const isFollow = user.following.includes(loggedInId);
+
+  return ApiResponse(res, 201, true, "Followed successfully", isFollow);
+};
+
 export {
   handleSendUserInformation,
   handleDeleteUserAccount,
   handleUpdateProfileSettings,
   handleSendSpecificUserInformation,
+  handleFollowUser,
 };

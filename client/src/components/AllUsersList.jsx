@@ -44,7 +44,7 @@ const UserList = ({ user }) => {
         </div>
       </div>
       <span className="text-[.90rem] bg-blue-500 text-white px-5 py-1 rounded-[5px] font-medium cursor-pointer">
-        Follow
+        view
       </span>
     </li>
   );

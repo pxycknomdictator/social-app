@@ -16,7 +16,7 @@ export const Suggestions = ({ user }) => {
           </div>
         </div>
         <span className="text-[.90rem] text-blue-500 font-medium cursor-pointer">
-          Follow
+          view
         </span>
       </section>
     </li>

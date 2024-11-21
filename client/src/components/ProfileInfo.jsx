@@ -4,10 +4,14 @@ import { useContextConsumer } from "../utils/contextConsumer.js";
 import { useCookies } from "react-cookie";
 import { _config } from "../utils/constants.js";
 import { jwtDecode } from "jwt-decode";
+import { Loader } from "./Loader.jsx";
+import { handleFollowUser } from "../utils/axios.js";
+import { useState } from "react";
 
 export const ProfileInfo = () => {
-  const { info, setPopups } = useContextConsumer();
+  const { info, setPopups, formState, setFormState } = useContextConsumer();
   const [cookies, _, removeCookie] = useCookies([_config.cookieName]);
+  const [followState, setFollowState] = useState(false);
 
   if (!Object.keys(info).length > 0) {
     return <h1>Failed</h1>;
@@ -19,6 +23,16 @@ export const ProfileInfo = () => {
   const ALL_POSTS = info.posts.map((post) => (
     <Post key={post._id} post={post} />
   ));
+
+  const follow = async () => {
+    setFormState((prev) => ({ ...prev, loading: true }));
+    const res = await handleFollowUser("/user/follow", {
+      loggedInId: decoded._id,
+      followId: info._id,
+    });
+    setFollowState(res.response.data.data);
+    setFormState((prev) => ({ ...prev, loading: false }));
+  };
 
   return (
     <>
@@ -62,9 +76,18 @@ export const ProfileInfo = () => {
               </div>
             ) : (
               <div className="text-right">
-                <button className="bg-blue-500 px-5 py-1.5 font-medium hover:bg-blue-600 rounded-md">
-                  Follow
-                </button>
+                {followState ? (
+                  <button
+                    onClick={follow}
+                    className="bg-white text-black px-5 py-1.5 font-medium hover:bg-white rounded-md flex items-center gap-3"
+                  >
+                    {formState.loading ? <Loader /> : "follow"}
+                  </button>
+                ) : (
+                  <button className="bg-gray-500 text-white px-5 py-1.5 font-medium hover:bg-gray-600 rounded-md flex items-center gap-3">
+                    {formState.loading ? <Loader /> : "following"}
+                  </button>
+                )}
               </div>
             )}
           </div>

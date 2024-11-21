@@ -94,6 +94,15 @@ const handleGetSpecificUserInfo = async (url, id) => {
   }
 };
 
+const handleFollowUser = async (url, form) => {
+  try {
+    const response = await api.post(url, form);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export {
   handleRegisterUser,
   handleLoginUser,
@@ -104,4 +113,5 @@ export {
   handleGetAllApplicationPosts,
   handleDeleteUserAccountPermanently,
   handleGetSpecificUserInfo,
+  handleFollowUser,
 };
