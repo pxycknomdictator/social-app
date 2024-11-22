@@ -27,22 +27,25 @@ const handleSendUserInformation = async (req, res) => {
 
 const handleSendSpecificUserInformation = async (req, res) => {
   const { id } = req.body;
-  const userInfo = await User.findById({ _id: id }).populate({
-    path: "posts",
-    populate: [
-      {
-        path: "author",
-        model: "User",
-      },
-      {
-        path: "comments",
-        populate: {
+  const userInfo = await User.findById({ _id: id })
+    .populate({
+      path: "posts",
+      populate: [
+        {
           path: "author",
           model: "User",
         },
-      },
-    ],
-  });
+        {
+          path: "comments",
+          populate: {
+            path: "author",
+            model: "User",
+          },
+        },
+      ],
+    })
+    .populate("followers", "_id")
+    .populate("following", "_id");
 
   return ApiResponse(res, 200, true, "User information", { userInfo });
 };
@@ -101,7 +104,13 @@ const handleFollowUser = async (req, res) => {
   });
 
   if (alreadyFollowing) {
-    return ApiResponse(res, 400, false, "You are already following this user", true);
+    return ApiResponse(
+      res,
+      400,
+      false,
+      "You are already following this user",
+      true
+    );
   }
 
   await User.findByIdAndUpdate(

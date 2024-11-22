@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Post } from "./Post.jsx";
 import { useContextConsumer } from "../utils/contextConsumer.js";
 import { useCookies } from "react-cookie";
@@ -6,19 +6,20 @@ import { _config } from "../utils/constants.js";
 import { jwtDecode } from "jwt-decode";
 import { Loader } from "./Loader.jsx";
 import { handleFollowUser } from "../utils/axios.js";
-import { useState } from "react";
 
 export const ProfileInfo = () => {
-  const { info, setPopups, formState, setFormState } = useContextConsumer();
+  const { state } = useLocation();
   const [cookies, _, removeCookie] = useCookies([_config.cookieName]);
-  const [followState, setFollowState] = useState(false);
+  const { info, setPopups, formState, setFormState } = useContextConsumer();
+  const decoded = jwtDecode(cookies.access_token);
+  const isPerson = decoded._id === info._id;
+  const isFollow = state?.data.userInfo.followers.some(
+    (follower) => follower._id === decoded._id
+  );
 
   if (!Object.keys(info).length > 0) {
     return <h1>Failed</h1>;
   }
-
-  const decoded = jwtDecode(cookies.access_token);
-  const isPerson = decoded._id === info._id;
 
   const ALL_POSTS = info.posts.map((post) => (
     <Post key={post._id} post={post} />
@@ -26,11 +27,10 @@ export const ProfileInfo = () => {
 
   const follow = async () => {
     setFormState((prev) => ({ ...prev, loading: true }));
-    const res = await handleFollowUser("/user/follow", {
+    await handleFollowUser("/user/follow", {
       loggedInId: decoded._id,
       followId: info._id,
     });
-    setFollowState(res.response.data.data);
     setFormState((prev) => ({ ...prev, loading: false }));
   };
 
@@ -76,7 +76,7 @@ export const ProfileInfo = () => {
               </div>
             ) : (
               <div className="text-right">
-                {followState ? (
+                {!isFollow ? (
                   <button
                     onClick={follow}
                     className="bg-white text-black px-5 py-1.5 font-medium hover:bg-white rounded-md flex items-center gap-3"

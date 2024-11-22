@@ -22,7 +22,9 @@ const UserList = ({ user }) => {
   const getId = async (id) => {
     const response = await handleGetSpecificUserInfo("/user", id);
     setInfo(response.data.data.userInfo);
-    navigate(`/dashboard/${response.data.data.userInfo.username}`);
+    navigate(`/dashboard/${response.data.data.userInfo.username}`, {
+      state: response.data,
+    });
   };
 
   return (
